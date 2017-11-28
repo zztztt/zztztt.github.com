@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="log4j2," />
 
 
 
@@ -79,13 +79,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="zztztt">
-<meta property="og:url" content="http://zztztt.github.com/index.html">
+<meta name="description" content="Log4j2 and SLF4J很多人其实并不了解SLF4j 和 Log4j2 之间是什么关系, 通过SLF4J 官网上的这张图就可以很直观的了解SLF4J的作用了。它可以让application的代码调用打日志的接口(也就是slf4j的接口)，而不用关心log真正是由什么组件打印的。实现了日志接口和实现逻辑的解耦。 ">
+<meta name="keywords" content="log4j2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="log4j2与slf4j的绑定过程">
+<meta property="og:url" content="http://zztztt.github.com/2017/11/28/log4j2-slf4j-bind/index.html">
 <meta property="og:site_name" content="zztztt">
+<meta property="og:description" content="Log4j2 and SLF4J很多人其实并不了解SLF4j 和 Log4j2 之间是什么关系, 通过SLF4J 官网上的这张图就可以很直观的了解SLF4J的作用了。它可以让application的代码调用打日志的接口(也就是slf4j的接口)，而不用关心log真正是由什么组件打印的。实现了日志接口和实现逻辑的解耦。  我们可以想象这么做有什么好处呢？假如你使用的开源组件A用了log4j打日志，组">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://zztztt.github.com/2017/11/28/log4j2-slf4j-bind/concrete-bindings.png">
+<meta property="og:updated_time" content="2017-11-28T12:45:10.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zztztt">
+<meta name="twitter:title" content="log4j2与slf4j的绑定过程">
+<meta name="twitter:description" content="Log4j2 and SLF4J很多人其实并不了解SLF4j 和 Log4j2 之间是什么关系, 通过SLF4J 官网上的这张图就可以很直观的了解SLF4J的作用了。它可以让application的代码调用打日志的接口(也就是slf4j的接口)，而不用关心log真正是由什么组件打印的。实现了日志接口和实现逻辑的解耦。  我们可以想象这么做有什么好处呢？假如你使用的开源组件A用了log4j打日志，组">
+<meta name="twitter:image" content="http://zztztt.github.com/2017/11/28/log4j2-slf4j-bind/concrete-bindings.png">
 
 
 
@@ -115,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://zztztt.github.com/"/>
+  <link rel="canonical" href="http://zztztt.github.com/2017/11/28/log4j2-slf4j-bind/"/>
 
 
 
 
 
-  <title>zztztt</title>
+  <title>log4j2与slf4j的绑定过程 | zztztt</title>
   
 
 
@@ -140,8 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -234,9 +240,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -266,9 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/11/28/log4j2-slf4j-bind/" itemprop="url">log4j2与slf4j的绑定过程</a></h1>
+          <h1 class="post-title" itemprop="name headline">log4j2与slf4j的绑定过程</h1>
         
 
         <div class="post-meta">
@@ -351,9 +355,7 @@
       
 
       
-        
-          
-            <h2 id="Log4j2-and-SLF4J"><a href="#Log4j2-and-SLF4J" class="headerlink" title="Log4j2 and SLF4J"></a>Log4j2 and SLF4J</h2><p>很多人其实并不了解SLF4j 和 Log4j2 之间是什么关系, 通过SLF4J 官网上的这张图就可以很直观的了解SLF4J的作用了。它可以让application的代码调用打日志的接口(也就是slf4j的接口)，而不用关心log真正是由什么组件打印的。实现了日志接口和实现逻辑的解耦。</p>
+        <h2 id="Log4j2-and-SLF4J"><a href="#Log4j2-and-SLF4J" class="headerlink" title="Log4j2 and SLF4J"></a>Log4j2 and SLF4J</h2><p>很多人其实并不了解SLF4j 和 Log4j2 之间是什么关系, 通过SLF4J 官网上的这张图就可以很直观的了解SLF4J的作用了。它可以让application的代码调用打日志的接口(也就是slf4j的接口)，而不用关心log真正是由什么组件打印的。实现了日志接口和实现逻辑的解耦。</p>
 <p><img src="concrete-bindings.png" alt="concrete-bindings"></p>
 <p>我们可以想象这么做有什么好处呢？假如你使用的开源组件A用了log4j打日志，组件B用了logback打日志，那么你配置log的时候是不是就需要配置两个日志配置文件呢？如果再多一个组件呢？那这件事就会更加的繁琐。</p>
 <p>所以SLF4J就诞生了。它提供了一个打印日志的统一标准接口，当你开发组件的时候不需要去关心打日志的具体实现，把这件事交给了应用层，由应用服务的开发者去选择使用哪个具体的日志组件去打印日志。</p>
@@ -377,8 +379,6 @@
 <p>这样基本就实现了SLF4J到具体log实现组件之间的绑定。</p>
 <h3 id="Log4j2-绑定包实现"><a href="#Log4j2-绑定包实现" class="headerlink" title="Log4j2 绑定包实现"></a>Log4j2 绑定包实现</h3><p>log4j2 与 SLF4J 的绑定包为log4j-slf4j-impl。</p>
 
-          
-        
       
     </div>
     
@@ -393,14 +393,20 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/log4j2/" rel="tag"># log4j2</a>
+          
+        </div>
+      
+
+      
+      
+      
 
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -410,10 +416,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -421,6 +428,20 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -441,8 +462,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -504,6 +534,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Log4j2-and-SLF4J"><span class="nav-number">1.</span> <span class="nav-text">Log4j2 and SLF4J</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SLF4J绑定过程"><span class="nav-number">1.1.</span> <span class="nav-text">SLF4J绑定过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LoggerFactory-getLogger"><span class="nav-number">1.1.1.</span> <span class="nav-text">LoggerFactory.getLogger</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ILoggerFactory-getILoggerFactory"><span class="nav-number">1.1.2.</span> <span class="nav-text">ILoggerFactory.getILoggerFactory</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bind"><span class="nav-number">1.1.3.</span> <span class="nav-text">bind</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#findPossibleStaticLoggerBinderPathSet"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">findPossibleStaticLoggerBinderPathSet</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reportMultipleBindingAmbiguity"><span class="nav-number">1.1.3.2.</span> <span class="nav-text">reportMultipleBindingAmbiguity</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#StaticLoggerBinder-getSingleton"><span class="nav-number">1.1.3.3.</span> <span class="nav-text">StaticLoggerBinder.getSingleton</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reportActualBinding"><span class="nav-number">1.1.3.4.</span> <span class="nav-text">reportActualBinding</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Log4j2-绑定包实现"><span class="nav-number">1.2.</span> <span class="nav-text">Log4j2 绑定包实现</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -637,6 +683,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -654,6 +704,18 @@
       <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
     
 
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zztztt.github.com/2017/11/28/log4j2-slf4j-bind/';
+          this.page.identifier = '2017/11/28/log4j2-slf4j-bind/';
+          this.page.title = 'log4j2与slf4j的绑定过程';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
     
 
   
