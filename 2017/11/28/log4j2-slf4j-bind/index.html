@@ -88,7 +88,7 @@
 <meta property="og:description" content="Log4j2 and SLF4J很多人其实并不了解SLF4j 和 Log4j2 之间是什么关系, 通过SLF4J 官网上的这张图就可以很直观的了解SLF4J的作用了。它可以让application的代码调用打日志的接口(也就是slf4j的接口)，而不用关心log真正是由什么组件打印的。实现了日志接口和实现逻辑的解耦。  我们可以想象这么做有什么好处呢？假如你使用的开源组件A用了log4j打日志，组">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://zztztt.github.com/2017/11/28/log4j2-slf4j-bind/concrete-bindings.png">
-<meta property="og:updated_time" content="2017-11-28T12:45:10.000Z">
+<meta property="og:updated_time" content="2017-11-28T12:53:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="log4j2与slf4j的绑定过程">
 <meta name="twitter:description" content="Log4j2 and SLF4J很多人其实并不了解SLF4j 和 Log4j2 之间是什么关系, 通过SLF4J 官网上的这张图就可以很直观的了解SLF4J的作用了。它可以让application的代码调用打日志的接口(也就是slf4j的接口)，而不用关心log真正是由什么组件打印的。实现了日志接口和实现逻辑的解耦。  我们可以想象这么做有什么好处呢？假如你使用的开源组件A用了log4j打日志，组">
@@ -356,7 +356,7 @@
 
       
         <h2 id="Log4j2-and-SLF4J"><a href="#Log4j2-and-SLF4J" class="headerlink" title="Log4j2 and SLF4J"></a>Log4j2 and SLF4J</h2><p>很多人其实并不了解SLF4j 和 Log4j2 之间是什么关系, 通过SLF4J 官网上的这张图就可以很直观的了解SLF4J的作用了。它可以让application的代码调用打日志的接口(也就是slf4j的接口)，而不用关心log真正是由什么组件打印的。实现了日志接口和实现逻辑的解耦。</p>
-<p><img src="concrete-bindings.png" alt="concrete-bindings"></p>
+<img src="/2017/11/28/log4j2-slf4j-bind/concrete-bindings.png">
 <p>我们可以想象这么做有什么好处呢？假如你使用的开源组件A用了log4j打日志，组件B用了logback打日志，那么你配置log的时候是不是就需要配置两个日志配置文件呢？如果再多一个组件呢？那这件事就会更加的繁琐。</p>
 <p>所以SLF4J就诞生了。它提供了一个打印日志的统一标准接口，当你开发组件的时候不需要去关心打日志的具体实现，把这件事交给了应用层，由应用服务的开发者去选择使用哪个具体的日志组件去打印日志。</p>
 <p>那开发者是怎么实现SLFJ 接口和具体日志组件的绑定的呢？这之间其实是通过了一个桥接包实现的。其中的具体原理我们可以通过具体的代码实现来看一下</p>
