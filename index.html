@@ -249,6 +249,899 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zztztt.github.com/2018/01/22/jvm-thread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhang zhitong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zztztt">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/22/jvm-thread/" itemprop="url">jvm_thread</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-22T14:54:04+08:00">
+                2018-01-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/22/jvm-thread/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/01/22/jvm-thread/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zztztt.github.com/2018/01/15/jvm-source-start/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhang zhitong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zztztt">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/15/jvm-source-start/" itemprop="url">jvm-source-start</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-15T16:37:58+08:00">
+                2018-01-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/jvm/" itemprop="url" rel="index">
+                    <span itemprop="name">jvm</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/15/jvm-source-start/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/01/15/jvm-source-start/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="JVM-启动过程"><a href="#JVM-启动过程" class="headerlink" title="JVM 启动过程"></a>JVM 启动过程</h1><h2 id="源码下载"><a href="#源码下载" class="headerlink" title="源码下载"></a>源码下载</h2><p>以openJDK7 为例：<a href="http://hg.openjdk.java.net/jdk7" target="_blank" rel="noopener">http://hg.openjdk.java.net/jdk7</a></p>
+<p>其中hotspot即为jvm虚拟机源码</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zztztt.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello World"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="maven-pom-xml-配置"><a href="#maven-pom-xml-配置" class="headerlink" title="maven pom.xml 配置"></a>maven pom.xml 配置</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-jar-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.6<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">archive</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">manifest</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">addClasspath</span>&gt;</span>true<span class="tag">&lt;/<span class="name">addClasspath</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">classpathPrefix</span>&gt;</span>lib/<span class="tag">&lt;/<span class="name">classpathPrefix</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">mainClass</span>&gt;</span>com.zztztt.test.Main<span class="tag">&lt;/<span class="name">mainClass</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">manifest</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">archive</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-dependency-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">id</span>&gt;</span>copy-dependencies<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">phase</span>&gt;</span>package<span class="tag">&lt;/<span class="name">phase</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">goal</span>&gt;</span>copy-dependencies<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                        <span class="tag">&lt;<span class="name">outputDirectory</span>&gt;</span>$&#123;project.build.directory&#125;/lib<span class="tag">&lt;/<span class="name">outputDirectory</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>把工程打成了一个jar包。</p>
+<p>通过java -jar xxx.jar 启动程序。</p>
+<h3 id="开启debug-日志"><a href="#开启debug-日志" class="headerlink" title="开启debug 日志"></a>开启debug 日志</h3><p>启动时可以在启动脚本中添加系统变量 打印一些启动日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export _JAVA_LAUNCHER_DEBUG=1</span><br></pre></td></tr></table></figure>
+<p>启动程序后会输出一些环境信息，比如我上面的程序在mac 机器上的输出如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">----_JAVA_LAUNCHER_DEBUG----</span><br><span class="line">Launcher state:</span><br><span class="line">	debug:on</span><br><span class="line">	javargs:off</span><br><span class="line">	program name:java</span><br><span class="line">	launcher name:java</span><br><span class="line">	javaw:off</span><br><span class="line">	fullversion:1.7.0_76-b13</span><br><span class="line">	dotversion:1.7</span><br><span class="line">	ergo_policy:DEFAULT_ERGONOMICS_POLICY</span><br><span class="line">Command line args:</span><br><span class="line">argv[0] = java</span><br><span class="line">argv[1] = -jar</span><br><span class="line">argv[2] = TestCase-1.0-SNAPSHOT.jar</span><br><span class="line">JRE path is /usr/local/jdk1.7.0_76/jre</span><br><span class="line">jvm.cfg[0] = -&gt;-server&lt;-</span><br><span class="line">jvm.cfg[1] = -&gt;-client&lt;-</span><br><span class="line">jvm.cfg[2] = -&gt;-hotspot&lt;-</span><br><span class="line">jvm.cfg[3] = -&gt;-classic&lt;-</span><br><span class="line">jvm.cfg[4] = -&gt;-native&lt;-</span><br><span class="line">jvm.cfg[5] = -&gt;-green&lt;-</span><br><span class="line">1 micro seconds to parse jvm.cfg</span><br><span class="line">Default VM: server</span><br><span class="line">Does `/usr/local/jdk1.7.0_76/jre/lib/amd64/server/libjvm.so&apos; exist ... yes.</span><br><span class="line">mustsetenv: FALSE</span><br><span class="line">JVM path is /usr/local/jdk1.7.0_76/jre/lib/amd64/server/libjvm.so</span><br><span class="line">1 micro seconds to LoadJavaVM</span><br><span class="line">JavaVM args:</span><br><span class="line">    version 0x00010002, ignoreUnrecognized is JNI_FALSE, nOptions is 6</span><br><span class="line">    option[ 0] = &apos;-Dsun.java.launcher.diag=true&apos;</span><br><span class="line">    option[ 1] = &apos;-Djava.class.path=.&apos;</span><br><span class="line">    option[ 2] = &apos;-Djava.class.path=TestCase-1.0-SNAPSHOT.jar&apos;</span><br><span class="line">    option[ 3] = &apos;-Dsun.java.command=TestCase-1.0-SNAPSHOT.jar&apos;</span><br><span class="line">    option[ 4] = &apos;-Dsun.java.launcher=SUN_STANDARD&apos;</span><br><span class="line">    option[ 5] = &apos;-Dsun.java.launcher.pid=290287&apos;</span><br><span class="line">1 micro seconds to InitializeJVM</span><br><span class="line">JAR file is &apos;TestCase-1.0-SNAPSHOT.jar&apos;</span><br><span class="line">App&apos;s argc is 0</span><br><span class="line">1 micro seconds to load main class</span><br><span class="line">----_JAVA_LAUNCHER_DEBUG----</span><br></pre></td></tr></table></figure>
+<h2 id="JVM启动过程"><a href="#JVM启动过程" class="headerlink" title="JVM启动过程"></a>JVM启动过程</h2><ol>
+<li>创建JVM执行环境</li>
+<li>解析虚拟机启动参数，就是你用java命令启动时后面跟着的参数</li>
+<li>执行JavaMain函数，注意这里的main不是指你java代码里main函数，是有区别的。</li>
+</ol>
+<h3 id="创建JVM执行环境"><a href="#创建JVM执行环境" class="headerlink" title="创建JVM执行环境"></a>创建JVM执行环境</h3><h4 id="CreateExecutionEnvironment"><a href="#CreateExecutionEnvironment" class="headerlink" title="CreateExecutionEnvironment"></a>CreateExecutionEnvironment</h4><p>定位JRE PATH 和 JVM PATH，找到jvm 需要的库的位置</p>
+<h4 id="LoadJavaVM"><a href="#LoadJavaVM" class="headerlink" title="LoadJavaVM"></a>LoadJavaVM</h4><p>通过dlopen 加载动态链接库libjvm.so</p>
+<p>把JNI_CreateJavaVM， JNI_GetDefaultJavaVMInitArgs 链接到InvocationFunctions *ifn 函数指针上，这两个函数后面会用到。</p>
+<pre><code>ifn-&gt;CreateJavaVM = JNI_CreateJavaVM;
+ifn-&gt;GetDefaultJavaVMInitArgs = JNI_GetDefaultJavaVMInitArgs;
+</code></pre><p>###解析虚拟机启动参数</p>
+<h4 id="ParseArguments"><a href="#ParseArguments" class="headerlink" title="ParseArguments"></a>ParseArguments</h4><p>解析java 后面的参数，然后通过AppOption方法添加到JavaVMOption中，其中-Xss 参数会被特殊处理一下，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Adds a new VM option with the given given name and value.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">AddOption(<span class="keyword">char</span> *str, <span class="keyword">void</span> *info)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * Expand options array if needed to accommodate at least one more</span></span><br><span class="line"><span class="comment">     * VM option.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">if</span> (numOptions &gt;= maxOptions) &#123;</span><br><span class="line">        <span class="keyword">if</span> (options == <span class="number">0</span>) &#123;</span><br><span class="line">            maxOptions = <span class="number">4</span>;</span><br><span class="line">            options = JLI_MemAlloc(maxOptions * sizeof(JavaVMOption));</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            JavaVMOption *tmp;</span><br><span class="line">            maxOptions *= <span class="number">2</span>;</span><br><span class="line">            tmp = JLI_MemAlloc(maxOptions * sizeof(JavaVMOption));</span><br><span class="line">            memcpy(tmp, options, numOptions * sizeof(JavaVMOption));</span><br><span class="line">            JLI_MemFree(options);</span><br><span class="line">            options = tmp;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    options[numOptions].optionString = str;</span><br><span class="line">    options[numOptions++].extraInfo = info;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (strncmp(str, <span class="string">"-Xss"</span>, <span class="number">4</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">      jlong tmp;</span><br><span class="line">      <span class="keyword">if</span> (parse_stack_size(str + <span class="number">4</span>, &amp;tmp)) &#123;</span><br><span class="line">        threadStackSize = tmp;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果没有指定线程堆栈大小，即没有配置-Xss 参数,JVM 会通过前面加载的函数指针调用GetDefaultJavaVMInitArgs，来配置默认的线程堆栈大小。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * If user doesn't specify stack size, check if VM has a preference.</span></span><br><span class="line"><span class="comment"> * Note that HotSpot no longer supports JNI_VERSION_1_1 but it will</span></span><br><span class="line"><span class="comment"> * return its default stack size through the init args structure.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">if</span> (threadStackSize == <span class="number">0</span>) &#123;</span><br><span class="line">  struct JDK1_1InitArgs args1_1;</span><br><span class="line">  memset((<span class="keyword">void</span>*)&amp;args1_1, <span class="number">0</span>, sizeof(args1_1));</span><br><span class="line">  args1_1.version = JNI_VERSION_1_1;</span><br><span class="line">  ifn.GetDefaultJavaVMInitArgs(&amp;args1_1);  <span class="comment">/* ignore return value */</span></span><br><span class="line">  <span class="keyword">if</span> (args1_1.javaStackSize &gt; <span class="number">0</span>) &#123;</span><br><span class="line">     threadStackSize = args1_1.javaStackSize;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="JavaMain"><a href="#JavaMain" class="headerlink" title="JavaMain"></a>JavaMain</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">struct JavaMainArgs &#123;</span><br><span class="line">  int     argc;</span><br><span class="line">  char ** argv;</span><br><span class="line">  char *  jarfile;</span><br><span class="line">  char *  classname;</span><br><span class="line">  InvocationFunctions ifn;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">struct JavaMainArgs args;</span><br><span class="line"></span><br><span class="line">args.argc = argc;</span><br><span class="line">args.argv = argv;</span><br><span class="line">args.jarfile = jarfile;</span><br><span class="line">args.classname = classname;</span><br><span class="line">args.ifn = ifn;</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> ContinueInNewThread(JavaMain, threadStackSize, (<span class="keyword">void</span>*)&amp;args);</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span></span><br><span class="line">ContinueInNewThread(<span class="keyword">int</span> (JNICALL *continuation)(<span class="keyword">void</span> *), jlong stack_size, <span class="keyword">void</span> * args) &#123;</span><br><span class="line">    <span class="keyword">int</span> rslt;</span><br><span class="line">    pthread_t tid;</span><br><span class="line">    pthread_attr_t attr;</span><br><span class="line">    pthread_attr_init(&amp;attr);</span><br><span class="line">    pthread_attr_setdetachstate(&amp;attr, PTHREAD_CREATE_JOINABLE);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (stack_size &gt; <span class="number">0</span>) &#123;</span><br><span class="line">      pthread_attr_setstacksize(&amp;attr, stack_size);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (pthread_create(&amp;tid, &amp;attr, (<span class="keyword">void</span> *(*)(<span class="keyword">void</span>*))continuation, (<span class="keyword">void</span>*)args) == <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">void</span> * tmp;</span><br><span class="line">      pthread_join(tid, &amp;tmp);</span><br><span class="line">      rslt = (<span class="keyword">int</span>)(intptr_t)tmp;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">     <span class="comment">/*</span></span><br><span class="line"><span class="comment">      * Continue execution in current thread if for some reason (e.g. out of</span></span><br><span class="line"><span class="comment">      * memory/LWP)  a new thread can't be created. This will likely fail</span></span><br><span class="line"><span class="comment">      * later in continuation as JNI_CreateJavaVM needs to create quite a</span></span><br><span class="line"><span class="comment">      * few new threads, anyway, just give it a try..</span></span><br><span class="line"><span class="comment">      */</span></span><br><span class="line">      rslt = continuation(args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    pthread_attr_destroy(&amp;attr);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> rslt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以上，简单理解就是开了个线程执行JavaMain函数</p>
+<p>JavaMain函数，主要的工作：</p>
+<ol>
+<li>新建jvm实例</li>
+<li>加载主类的class, 执行main方法</li>
+</ol>
+<h4 id="新建JVM实例-InitializeJVM"><a href="#新建JVM实例-InitializeJVM" class="headerlink" title="新建JVM实例 InitializeJVM"></a>新建JVM实例 InitializeJVM</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> jboolean</span><br><span class="line">InitializeJVM(JavaVM **pvm, JNIEnv **penv, InvocationFunctions *ifn)</span><br><span class="line">&#123;</span><br><span class="line">    JavaVMInitArgs args;</span><br><span class="line">    jint r;</span><br><span class="line"></span><br><span class="line">    memset(&amp;args, <span class="number">0</span>, sizeof(args));</span><br><span class="line">    args.version  = JNI_VERSION_1_2;</span><br><span class="line">    args.nOptions = numOptions;</span><br><span class="line">    args.options  = options;</span><br><span class="line">    args.ignoreUnrecognized = JNI_FALSE;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (_launcher_debug) &#123;</span><br><span class="line">        <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">        printf(<span class="string">"JavaVM args:\n    "</span>);</span><br><span class="line">        printf(<span class="string">"version 0x%08lx, "</span>, (<span class="keyword">long</span>)args.version);</span><br><span class="line">        printf(<span class="string">"ignoreUnrecognized is %s, "</span>,</span><br><span class="line">               args.ignoreUnrecognized ? <span class="string">"JNI_TRUE"</span> : <span class="string">"JNI_FALSE"</span>);</span><br><span class="line">        printf(<span class="string">"nOptions is %ld\n"</span>, (<span class="keyword">long</span>)args.nOptions);</span><br><span class="line">        <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; numOptions; i++)</span><br><span class="line">            printf(<span class="string">"    option[%2d] = '%s'\n"</span>,</span><br><span class="line">                   i, args.options[i].optionString);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    r = ifn-&gt;CreateJavaVM(pvm, (<span class="keyword">void</span> **)penv, &amp;args);</span><br><span class="line">    JLI_MemFree(options);</span><br><span class="line">    <span class="keyword">return</span> r == JNI_OK;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用了上面加载so配置的函数指针 JNI_CreateJavaVM</p>
+<h4 id="加载主类class，执行main函数"><a href="#加载主类class，执行main函数" class="headerlink" title="加载主类class，执行main函数"></a>加载主类class，执行main函数</h4><p>这里源码中针对jar包的启动方式和非jar的启动方式，实现了两种加载逻辑。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zztztt.github.com/2018/01/08/java-thread-lock/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhang zhitong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zztztt">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/08/java-thread-lock/" itemprop="url">java-thread-lock</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-08T15:09:26+08:00">
+                2018-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/08/java-thread-lock/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/01/08/java-thread-lock/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Java-Lock"><a href="#Java-Lock" class="headerlink" title="Java Lock"></a>Java Lock</h1>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zztztt.github.com/2018/01/04/java-thread-introduction/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhang zhitong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zztztt">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/01/04/java-thread-introduction/" itemprop="url">java_thread_introduction</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-01-04T16:05:41+08:00">
+                2018-01-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/thread/" itemprop="url" rel="index">
+                    <span itemprop="name">thread</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/01/04/java-thread-introduction/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/01/04/java-thread-introduction/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>##Thread 状态变更</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>NEW</th>
+<th style="text-align:left">RUNNABLE</th>
+<th>BLOCKED</th>
+<th>WAITING</th>
+<th>TIME_WAITING</th>
+<th>TERMINATED</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NEW</strong></td>
+<td></td>
+<td style="text-align:left"></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>RUNNABLE</strong></td>
+<td>Thread.start()</td>
+<td style="text-align:left"></td>
+<td>获取到了锁</td>
+<td>Object.notify() Object.notifyAll()  LockSupport.unpark(Thread)</td>
+<td>Object.notify() Object.notifyAll() LockSupport.unpark(Thread) 超时时间到达</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>BLOCKED</strong></td>
+<td></td>
+<td style="text-align:left">等待进入synchronized块或 方法</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>WAITING</strong></td>
+<td></td>
+<td style="text-align:left">Object.wait()  Object.wait() LockSupport.pack()</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TIME_WAITING</strong></td>
+<td></td>
+<td style="text-align:left">Thread.sleep(long) Object.wait(long) Thread.join(long) LockSupport.parkNanos() LockSupport.parkUntil()</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><strong>TERMINATED</strong></td>
+<td></td>
+<td style="text-align:left">执行完毕</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.zztztt.test.thread.state;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.Lock;</span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.locks.ReentrantLock;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ThreadState</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> TimeWaiting(), TimeWaiting.class.getSimpleName()).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Waiting(), Waiting.class.getSimpleName()).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Blocked(), Blocked.class.getSimpleName() + <span class="string">"-1"</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> Blocked(), Blocked.class.getSimpleName() + <span class="string">"-2"</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> ConcurrentLock(), ConcurrentLock.class.getSimpleName() + <span class="string">"-1"</span>).start();</span><br><span class="line">        <span class="keyword">new</span> Thread(<span class="keyword">new</span> ConcurrentLock(), ConcurrentLock.class.getSimpleName() + <span class="string">"-2"</span>).start();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TimeWaiting</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">                SleepUtils.sleep(<span class="number">100</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Waiting</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">                <span class="keyword">synchronized</span> (Waiting.class) &#123;</span><br><span class="line">                    <span class="keyword">try</span> &#123;</span><br><span class="line">                        Waiting.class.wait();</span><br><span class="line">                    &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                        e.printStackTrace();</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Blocked</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">synchronized</span> (Blocked.class) &#123;</span><br><span class="line">                <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">                    SleepUtils.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">ConcurrentLock</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Lock lock = <span class="keyword">new</span> ReentrantLock();</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                lock.lock();</span><br><span class="line">                <span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">                    SleepUtils.sleep(<span class="number">100</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                lock.unlock();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SleepUtils</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">sleep</span><span class="params">(<span class="keyword">long</span> seconds)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            TimeUnit.SECONDS.sleep(seconds);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zztztt.github.com/2017/12/11/thrift-protocol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhang zhitong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zztztt">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/11/thrift-protocol/" itemprop="url">thrift-protocol</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-11T15:38:59+08:00">
+                2017-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/log4j2/" itemprop="url" rel="index">
+                    <span itemprop="name">log4j2</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/11/thrift-protocol/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/11/thrift-protocol/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="Thrift-Protocol-源码解析"><a href="#Thrift-Protocol-源码解析" class="headerlink" title="Thrift Protocol 源码解析"></a>Thrift Protocol 源码解析</h1><h2 id="支持的数据结构"><a href="#支持的数据结构" class="headerlink" title="支持的数据结构"></a>支持的数据结构</h2><ul>
+<li>基本类型: i16，i32，i64, double, boolean，byte，byte[], String</li>
+<li>容器类型: List，Set，Map，TList/TSet/TMap类包含其元素的类型与元素的总个数。</li>
+<li>Struct类型，即面向对象的Class，继承于TBase。TStruct类有Name属性，还含有一系列的Field。TField类有自己的Name，类型，顺序id属性。</li>
+<li>Exception类型也是个Struct，继承于TException这个checked exception。</li>
+<li>Enum类型传输时是个i32。</li>
+<li>Message类型封装往返的RPC消息。TMessage类包含Name，类型(请求，返回，异常，ONEWAY)与seqId属性。</li>
+</ul>
+<h3 id="Read-and-Write"><a href="#Read-and-Write" class="headerlink" title="Read and Write"></a>Read and Write</h3><ul>
+<li>如果是基本类型 直接读写</li>
+<li>如果是结构化类型，先调用readXXXBegin()，再调用其子元素的read()方法，再调用readXXXEnd()。</li>
+</ul>
+<p>##支持的协议</p>
+<p>###TBinaryProtocol</p>
+<p>如前所述，i16,i32, double这些原始类型都是定长的，String,byte[]会在前4个字节说明自己的长度，容器类，Strutct类所对应的TMap,TStruct,TField,TMessage里有如前所述的属性 (不过Struct与Field里的name属性会被skip)，所以其实现实可以简单想象的。</p>
+<p>###TCompactProtocol</p>
+<p>比起TBinaryProtocol，会想方设法省点再省点。</p>
+<ol>
+<li>对整数类型使用了 ZigZag 压缩算法，数值越小压的越多。比如 i32 类型的整数本来是4个字节， 可以压缩成 1~5 字节不等。而 i64类型的整数本来是8个字节，可以压缩成 1~10 字节不等。 因此，值小的i32和i64，和小的Collection和短的String(因为它们都有定义长度的int属性) 越多，它就能省得越多。</li>
+<li>它还会尝试将Field的fieldId和type挤在一个byte里写。原本field是short，type也占一个byte，合共三个byte。 它将1个byte拆成两组4bit，前4bit放与前一个field的Id的delta值(不能相差超过15，如果中间太多没持久化的optional field)，后4bit放type(目前刚好16种type，把byte[]和String合成一种了)</li>
+</ol>
+<p>###TTupleProtocol</p>
+<p>继承于TCompactProtocol，Struct的编解码时使用更省地方但IDL间版本不兼容的TupleScheme，见Processor层。</p>
+<h3 id="TJSONProtocol"><a href="#TJSONProtocol" class="headerlink" title="TJSONProtocol"></a>TJSONProtocol</h3><p>与我们平时的Restful JSON还是有点区别，具体的定义看cpp实现的TJSONProtool.h文件</p>
+<p>对于容器类和Message，会用数组的方式，前几个元素是元信息，后面才是value，比如List是［type，size，［1，2，3］］，</p>
+<p>对于Struct，会是个Map，Key是fieldId而不是name(为了节省空间?)，Value又是一个Map，只有一个Key-Value Pair，Key是type，Value才是真正value。</p>
+<h2 id="简单例子的协议读写过程"><a href="#简单例子的协议读写过程" class="headerlink" title="简单例子的协议读写过程"></a>简单例子的协议读写过程</h2><p>###idl 定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">struct Xtruct</span><br><span class="line">&#123;</span><br><span class="line">    <span class="number">1</span>:  string string_thing,</span><br><span class="line">    <span class="number">4</span>:  i16    i16_thing,</span><br><span class="line">    <span class="number">9</span>:  i32    i32_thing,</span><br><span class="line">    <span class="number">11</span>: i64    i64_thing</span><br><span class="line">&#125;</span><br><span class="line">service EasyTest</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">string       <span class="title">test</span><span class="params">(<span class="number">1</span>:string p1, <span class="number">2</span>:i32 p2, <span class="number">3</span>: Xtruct p3)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">void</span>         <span class="title">testVoid</span><span class="params">()</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="TProtocol"><a href="#TProtocol" class="headerlink" title="TProtocol"></a>TProtocol</h3><p>协议接口类提供的方法</p>
+<p>方法比较多，不过可以简单归纳一下：</p>
+<ul>
+<li>读写消息</li>
+<li>读写struct，即定义的结构体或者类</li>
+<li>读写Field，即字段的意思</li>
+<li>基本类型的读写</li>
+<li>容器的读写（map, set, list）</li>
+<li>reset</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">package org.apache.thrift.protocol;</span><br><span class="line"></span><br><span class="line">import java.nio.ByteBuffer;</span><br><span class="line">import org.apache.thrift.TException;</span><br><span class="line">import org.apache.thrift.scheme.IScheme;</span><br><span class="line">import org.apache.thrift.scheme.StandardScheme;</span><br><span class="line">import org.apache.thrift.transport.TTransport;</span><br><span class="line"></span><br><span class="line">public abstract class TProtocol &#123;</span><br><span class="line">    protected TTransport trans_;</span><br><span class="line"></span><br><span class="line">    private TProtocol() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected TProtocol(TTransport trans) &#123;</span><br><span class="line">        this.trans_ = trans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public TTransport getTransport() &#123;</span><br><span class="line">        return this.trans_;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public abstract void writeMessageBegin(TMessage var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeMessageEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeStructBegin(TStruct var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeStructEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeFieldBegin(TField var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeFieldEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeFieldStop() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeMapBegin(TMap var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeMapEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeListBegin(TList var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeListEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeSetBegin(TSet var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeSetEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeBool(boolean var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeByte(byte var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeI16(short var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeI32(int var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeI64(long var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeDouble(double var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeString(String var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeBinary(ByteBuffer var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TMessage readMessageBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readMessageEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TStruct readStructBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readStructEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TField readFieldBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readFieldEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TMap readMapBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readMapEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TList readListBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readListEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TSet readSetBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readSetEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract boolean readBool() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract byte readByte() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract short readI16() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract int readI32() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract long readI64() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract double readDouble() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract String readString() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract ByteBuffer readBinary() throws TException;</span><br><span class="line"></span><br><span class="line">    public void reset() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Class&lt;? extends IScheme&gt; getScheme() &#123;</span><br><span class="line">        return StandardScheme.class;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="协议序列化部分"><a href="#协议序列化部分" class="headerlink" title="协议序列化部分"></a>协议序列化部分</h3><p>主要是写消息头，写消息体，写消息尾，然后传输层flush</p>
+<p>Client 调用端 (生成代码)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">(String p1, <span class="keyword">int</span> p2, Xtruct p3)</span> <span class="keyword">throws</span> org.apache.thrift.TException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  send_test(p1, p2, p3);</span><br><span class="line">  <span class="keyword">return</span> recv_test();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生成参数并发送 (生成代码)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send_test</span><span class="params">(String p1, <span class="keyword">int</span> p2, Xtruct p3)</span> <span class="keyword">throws</span> org.apache.thrift.TException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  test_args args = <span class="keyword">new</span> test_args();</span><br><span class="line">  args.setP1(p1);</span><br><span class="line">  args.setP2(p2);</span><br><span class="line">  args.setP3(p3);</span><br><span class="line">  sendBase(<span class="string">"test"</span>, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>thrift 源码, 其中oprot 即为使用的协议</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">sendBase</span><span class="params">(String methodName, TBase args)</span> <span class="keyword">throws</span> TException </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.oprot_.writeMessageBegin(<span class="keyword">new</span> TMessage(methodName, (<span class="keyword">byte</span>)<span class="number">1</span>, ++<span class="keyword">this</span>.seqid_));</span><br><span class="line">    args.write(<span class="keyword">this</span>.oprot_);</span><br><span class="line">    <span class="keyword">this</span>.oprot_.writeMessageEnd();</span><br><span class="line">    <span class="keyword">this</span>.oprot_.getTransport().flush();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中TMessage 定义, 消息名称，类型，和消息序列号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">TMessage</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">byte</span> type;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> seqid;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="string">""</span>, (<span class="keyword">byte</span>)<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TMessage</span><span class="params">(String n, <span class="keyword">byte</span> t, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = n;</span><br><span class="line">        <span class="keyword">this</span>.type = t;</span><br><span class="line">        <span class="keyword">this</span>.seqid = s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&lt;TMessage name:'"</span> + <span class="keyword">this</span>.name + <span class="string">"' type: "</span> + <span class="keyword">this</span>.type + <span class="string">" seqid:"</span> + <span class="keyword">this</span>.seqid + <span class="string">"&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object other)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> other <span class="keyword">instanceof</span> TMessage ? <span class="keyword">this</span>.equals((TMessage)other) : <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(TMessage other)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name.equals(other.name) &amp;&amp; <span class="keyword">this</span>.type == other.type &amp;&amp; <span class="keyword">this</span>.seqid == other.seqid;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>消息类型</p>
+<ul>
+<li>发送消息，客户端请求</li>
+<li>返回消息，服务端返回</li>
+<li>异常消息，服务端返回异常</li>
+<li>oneway消息，客户端发请求，无需服务端返回响应</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">TMessageType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">byte</span> CALL = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">byte</span> REPLY = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">byte</span> EXCEPTION = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">byte</span> ONEWAY = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TMessageType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>####消息头</p>
+<p>先构建消息TMessage，然后写消息头</p>
+<p>消息头包含了版本号，方法名，请求序列号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeMessageBegin</span><span class="params">(TMessage message)</span> <span class="keyword">throws</span> TException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.strictWrite_) &#123;</span><br><span class="line">        <span class="keyword">int</span> version = -<span class="number">2147418112</span> | message.type;</span><br><span class="line">        <span class="keyword">this</span>.writeI32(version);</span><br><span class="line">        <span class="keyword">this</span>.writeString(message.name);</span><br><span class="line">        <span class="keyword">this</span>.writeI32(message.seqid);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.writeString(message.name);</span><br><span class="line">        <span class="keyword">this</span>.writeByte(message.type);</span><br><span class="line">        <span class="keyword">this</span>.writeI32(message.seqid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>####消息体 </p>
+<p>thrift 生成的代码</p>
+<p>这里需要注意一下，一般使用的scheme均为：StandardScheme</p>
+<p>还有一个是TupleScheme， 它是一种更节约空间但服务版本间不兼容的TupleScheme，它不再传输fieldId与type的元数据，只在Struct头写入一个bitset表明哪几个field有值，然后直接用生成的代码读取这些有值的field。所以如果新版idl中filed类型改动将出错；新的field也不会被读取数据流没有往前滚动，接下来也是错。</p>
+<p>写逻辑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException &#123;</span><br><span class="line">  schemes.get(oprot.getScheme()).getScheme().write(oprot, this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  public void write(org.apache.thrift.protocol.TProtocol oprot, test_args struct) throws org.apache.thrift.TException &#123;</span><br><span class="line">    struct.validate();</span><br><span class="line"></span><br><span class="line">    oprot.writeStructBegin(STRUCT_DESC);</span><br><span class="line">    if (struct.p1 != null) &#123;</span><br><span class="line">      oprot.writeFieldBegin(P1_FIELD_DESC);</span><br><span class="line">      oprot.writeString(struct.p1);</span><br><span class="line">      oprot.writeFieldEnd();</span><br><span class="line">    &#125;</span><br><span class="line">    oprot.writeFieldBegin(P2_FIELD_DESC);</span><br><span class="line">    oprot.writeI32(struct.p2);</span><br><span class="line">    oprot.writeFieldEnd();</span><br><span class="line">    if (struct.p3 != null) &#123;</span><br><span class="line">      oprot.writeFieldBegin(P3_FIELD_DESC);</span><br><span class="line">      struct.p3.write(oprot);</span><br><span class="line">      oprot.writeFieldEnd();</span><br><span class="line">    &#125;</span><br><span class="line">    oprot.writeFieldStop();</span><br><span class="line">    oprot.writeStructEnd();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>读逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(org.apache.thrift.protocol.TProtocol iprot, test_args struct)</span> <span class="keyword">throws</span> org.apache.thrift.TException </span>&#123;</span><br><span class="line">  org.apache.thrift.protocol.TField schemeField;</span><br><span class="line">  iprot.readStructBegin();</span><br><span class="line">  <span class="keyword">while</span> (<span class="keyword">true</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    schemeField = iprot.readFieldBegin();</span><br><span class="line">    <span class="keyword">if</span> (schemeField.type == org.apache.thrift.protocol.TType.STOP) &#123; </span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">switch</span> (schemeField.id) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">// P1</span></span><br><span class="line">        <span class="keyword">if</span> (schemeField.type == org.apache.thrift.protocol.TType.STRING) &#123;</span><br><span class="line">          struct.p1 = iprot.readString();</span><br><span class="line">          struct.setP1IsSet(<span class="keyword">true</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">          org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>: <span class="comment">// P2</span></span><br><span class="line">        <span class="keyword">if</span> (schemeField.type == org.apache.thrift.protocol.TType.I32) &#123;</span><br><span class="line">          struct.p2 = iprot.readI32();</span><br><span class="line">          struct.setP2IsSet(<span class="keyword">true</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">          org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">3</span>: <span class="comment">// P3</span></span><br><span class="line">        <span class="keyword">if</span> (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) &#123;</span><br><span class="line">          struct.p3 = <span class="keyword">new</span> Xtruct();</span><br><span class="line">          struct.p3.read(iprot);</span><br><span class="line">          struct.setP3IsSet(<span class="keyword">true</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">          org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);</span><br><span class="line">    &#125;</span><br><span class="line">    iprot.readFieldEnd();</span><br><span class="line">  &#125;</span><br><span class="line">  iprot.readStructEnd();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// check for required fields of primitive type, which can't be checked in the validate method</span></span><br><span class="line">  struct.validate();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以综合起来，最后的消息都会落到TProtocol这个接口里。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://zztztt.github.com/2017/11/28/log4j2-slf4j-bind/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -457,7 +1350,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -468,7 +1361,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -479,7 +1372,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-count">3</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -518,7 +1411,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="log4j2," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Thrift Protocol 源码解析支持的数据结构 基本类型: i16，i32，i64, double, boolean，byte，byte[], String 容器类型: List，Set，Map，TList/TSet/TMap类包含其元素的类型与元素的总个数。 Struct类型，即面向对象的Class，继承于T">
+<meta name="keywords" content="log4j2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="thrift-protocol">
+<meta property="og:url" content="http://zztztt.github.com/2017/12/11/thrift-protocol/index.html">
+<meta property="og:site_name" content="zztztt">
+<meta property="og:description" content="Thrift Protocol 源码解析支持的数据结构 基本类型: i16，i32，i64, double, boolean，byte，byte[], String 容器类型: List，Set，Map，TList/TSet/TMap类包含其元素的类型与元素的总个数。 Struct类型，即面向对象的Class，继承于TBase。TStruct类有Name属性，还含有一系列的Field。TField">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-01-12T10:15:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="thrift-protocol">
+<meta name="twitter:description" content="Thrift Protocol 源码解析支持的数据结构 基本类型: i16，i32，i64, double, boolean，byte，byte[], String 容器类型: List，Set，Map，TList/TSet/TMap类包含其元素的类型与元素的总个数。 Struct类型，即面向对象的Class，继承于TBase。TStruct类有Name属性，还含有一系列的Field。TField">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zztztt.github.com/2017/12/11/thrift-protocol/"/>
+
+
+
+
+
+  <title>thrift-protocol | zztztt</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zztztt</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://zztztt.github.com/2017/12/11/thrift-protocol/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhang zhitong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zztztt">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">thrift-protocol</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-11T15:38:59+08:00">
+                2017-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/log4j2/" itemprop="url" rel="index">
+                    <span itemprop="name">log4j2</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/12/11/thrift-protocol/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/12/11/thrift-protocol/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Thrift-Protocol-源码解析"><a href="#Thrift-Protocol-源码解析" class="headerlink" title="Thrift Protocol 源码解析"></a>Thrift Protocol 源码解析</h1><h2 id="支持的数据结构"><a href="#支持的数据结构" class="headerlink" title="支持的数据结构"></a>支持的数据结构</h2><ul>
+<li>基本类型: i16，i32，i64, double, boolean，byte，byte[], String</li>
+<li>容器类型: List，Set，Map，TList/TSet/TMap类包含其元素的类型与元素的总个数。</li>
+<li>Struct类型，即面向对象的Class，继承于TBase。TStruct类有Name属性，还含有一系列的Field。TField类有自己的Name，类型，顺序id属性。</li>
+<li>Exception类型也是个Struct，继承于TException这个checked exception。</li>
+<li>Enum类型传输时是个i32。</li>
+<li>Message类型封装往返的RPC消息。TMessage类包含Name，类型(请求，返回，异常，ONEWAY)与seqId属性。</li>
+</ul>
+<h3 id="Read-and-Write"><a href="#Read-and-Write" class="headerlink" title="Read and Write"></a>Read and Write</h3><ul>
+<li>如果是基本类型 直接读写</li>
+<li>如果是结构化类型，先调用readXXXBegin()，再调用其子元素的read()方法，再调用readXXXEnd()。</li>
+</ul>
+<p>##支持的协议</p>
+<p>###TBinaryProtocol</p>
+<p>如前所述，i16,i32, double这些原始类型都是定长的，String,byte[]会在前4个字节说明自己的长度，容器类，Strutct类所对应的TMap,TStruct,TField,TMessage里有如前所述的属性 (不过Struct与Field里的name属性会被skip)，所以其实现实可以简单想象的。</p>
+<p>###TCompactProtocol</p>
+<p>比起TBinaryProtocol，会想方设法省点再省点。</p>
+<ol>
+<li>对整数类型使用了 ZigZag 压缩算法，数值越小压的越多。比如 i32 类型的整数本来是4个字节， 可以压缩成 1~5 字节不等。而 i64类型的整数本来是8个字节，可以压缩成 1~10 字节不等。 因此，值小的i32和i64，和小的Collection和短的String(因为它们都有定义长度的int属性) 越多，它就能省得越多。</li>
+<li>它还会尝试将Field的fieldId和type挤在一个byte里写。原本field是short，type也占一个byte，合共三个byte。 它将1个byte拆成两组4bit，前4bit放与前一个field的Id的delta值(不能相差超过15，如果中间太多没持久化的optional field)，后4bit放type(目前刚好16种type，把byte[]和String合成一种了)</li>
+</ol>
+<p>###TTupleProtocol</p>
+<p>继承于TCompactProtocol，Struct的编解码时使用更省地方但IDL间版本不兼容的TupleScheme，见Processor层。</p>
+<h3 id="TJSONProtocol"><a href="#TJSONProtocol" class="headerlink" title="TJSONProtocol"></a>TJSONProtocol</h3><p>与我们平时的Restful JSON还是有点区别，具体的定义看cpp实现的TJSONProtool.h文件</p>
+<p>对于容器类和Message，会用数组的方式，前几个元素是元信息，后面才是value，比如List是［type，size，［1，2，3］］，</p>
+<p>对于Struct，会是个Map，Key是fieldId而不是name(为了节省空间?)，Value又是一个Map，只有一个Key-Value Pair，Key是type，Value才是真正value。</p>
+<h2 id="简单例子的协议读写过程"><a href="#简单例子的协议读写过程" class="headerlink" title="简单例子的协议读写过程"></a>简单例子的协议读写过程</h2><p>###idl 定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">struct Xtruct</span><br><span class="line">&#123;</span><br><span class="line">    <span class="number">1</span>:  string string_thing,</span><br><span class="line">    <span class="number">4</span>:  i16    i16_thing,</span><br><span class="line">    <span class="number">9</span>:  i32    i32_thing,</span><br><span class="line">    <span class="number">11</span>: i64    i64_thing</span><br><span class="line">&#125;</span><br><span class="line">service EasyTest</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">string       <span class="title">test</span><span class="params">(<span class="number">1</span>:string p1, <span class="number">2</span>:i32 p2, <span class="number">3</span>: Xtruct p3)</span></span></span><br><span class="line"><span class="function">    <span class="keyword">void</span>         <span class="title">testVoid</span><span class="params">()</span></span></span><br><span class="line"><span class="function">&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="TProtocol"><a href="#TProtocol" class="headerlink" title="TProtocol"></a>TProtocol</h3><p>协议接口类提供的方法</p>
+<p>方法比较多，不过可以简单归纳一下：</p>
+<ul>
+<li>读写消息</li>
+<li>读写struct，即定义的结构体或者类</li>
+<li>读写Field，即字段的意思</li>
+<li>基本类型的读写</li>
+<li>容器的读写（map, set, list）</li>
+<li>reset</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line">package org.apache.thrift.protocol;</span><br><span class="line"></span><br><span class="line">import java.nio.ByteBuffer;</span><br><span class="line">import org.apache.thrift.TException;</span><br><span class="line">import org.apache.thrift.scheme.IScheme;</span><br><span class="line">import org.apache.thrift.scheme.StandardScheme;</span><br><span class="line">import org.apache.thrift.transport.TTransport;</span><br><span class="line"></span><br><span class="line">public abstract class TProtocol &#123;</span><br><span class="line">    protected TTransport trans_;</span><br><span class="line"></span><br><span class="line">    private TProtocol() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    protected TProtocol(TTransport trans) &#123;</span><br><span class="line">        this.trans_ = trans;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public TTransport getTransport() &#123;</span><br><span class="line">        return this.trans_;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public abstract void writeMessageBegin(TMessage var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeMessageEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeStructBegin(TStruct var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeStructEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeFieldBegin(TField var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeFieldEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeFieldStop() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeMapBegin(TMap var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeMapEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeListBegin(TList var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeListEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeSetBegin(TSet var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeSetEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeBool(boolean var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeByte(byte var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeI16(short var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeI32(int var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeI64(long var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeDouble(double var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeString(String var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void writeBinary(ByteBuffer var1) throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TMessage readMessageBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readMessageEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TStruct readStructBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readStructEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TField readFieldBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readFieldEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TMap readMapBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readMapEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TList readListBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readListEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract TSet readSetBegin() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract void readSetEnd() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract boolean readBool() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract byte readByte() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract short readI16() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract int readI32() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract long readI64() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract double readDouble() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract String readString() throws TException;</span><br><span class="line"></span><br><span class="line">    public abstract ByteBuffer readBinary() throws TException;</span><br><span class="line"></span><br><span class="line">    public void reset() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public Class&lt;? extends IScheme&gt; getScheme() &#123;</span><br><span class="line">        return StandardScheme.class;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="协议序列化部分"><a href="#协议序列化部分" class="headerlink" title="协议序列化部分"></a>协议序列化部分</h3><p>主要是写消息头，写消息体，写消息尾，然后传输层flush</p>
+<p>Client 调用端 (生成代码)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">(String p1, <span class="keyword">int</span> p2, Xtruct p3)</span> <span class="keyword">throws</span> org.apache.thrift.TException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  send_test(p1, p2, p3);</span><br><span class="line">  <span class="keyword">return</span> recv_test();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>生成参数并发送 (生成代码)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">send_test</span><span class="params">(String p1, <span class="keyword">int</span> p2, Xtruct p3)</span> <span class="keyword">throws</span> org.apache.thrift.TException</span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  test_args args = <span class="keyword">new</span> test_args();</span><br><span class="line">  args.setP1(p1);</span><br><span class="line">  args.setP2(p2);</span><br><span class="line">  args.setP3(p3);</span><br><span class="line">  sendBase(<span class="string">"test"</span>, args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>thrift 源码, 其中oprot 即为使用的协议</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">sendBase</span><span class="params">(String methodName, TBase args)</span> <span class="keyword">throws</span> TException </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.oprot_.writeMessageBegin(<span class="keyword">new</span> TMessage(methodName, (<span class="keyword">byte</span>)<span class="number">1</span>, ++<span class="keyword">this</span>.seqid_));</span><br><span class="line">    args.write(<span class="keyword">this</span>.oprot_);</span><br><span class="line">    <span class="keyword">this</span>.oprot_.writeMessageEnd();</span><br><span class="line">    <span class="keyword">this</span>.oprot_.getTransport().flush();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>其中TMessage 定义, 消息名称，类型，和消息序列号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">TMessage</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String name;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">byte</span> type;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">int</span> seqid;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TMessage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(<span class="string">""</span>, (<span class="keyword">byte</span>)<span class="number">0</span>, <span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TMessage</span><span class="params">(String n, <span class="keyword">byte</span> t, <span class="keyword">int</span> s)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = n;</span><br><span class="line">        <span class="keyword">this</span>.type = t;</span><br><span class="line">        <span class="keyword">this</span>.seqid = s;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"&lt;TMessage name:'"</span> + <span class="keyword">this</span>.name + <span class="string">"' type: "</span> + <span class="keyword">this</span>.type + <span class="string">" seqid:"</span> + <span class="keyword">this</span>.seqid + <span class="string">"&gt;"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object other)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> other <span class="keyword">instanceof</span> TMessage ? <span class="keyword">this</span>.equals((TMessage)other) : <span class="keyword">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(TMessage other)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.name.equals(other.name) &amp;&amp; <span class="keyword">this</span>.type == other.type &amp;&amp; <span class="keyword">this</span>.seqid == other.seqid;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>消息类型</p>
+<ul>
+<li>发送消息，客户端请求</li>
+<li>返回消息，服务端返回</li>
+<li>异常消息，服务端返回异常</li>
+<li>oneway消息，客户端发请求，无需服务端返回响应</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">TMessageType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">byte</span> CALL = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">byte</span> REPLY = <span class="number">2</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">byte</span> EXCEPTION = <span class="number">3</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">byte</span> ONEWAY = <span class="number">4</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TMessageType</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>####消息头</p>
+<p>先构建消息TMessage，然后写消息头</p>
+<p>消息头包含了版本号，方法名，请求序列号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">writeMessageBegin</span><span class="params">(TMessage message)</span> <span class="keyword">throws</span> TException </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.strictWrite_) &#123;</span><br><span class="line">        <span class="keyword">int</span> version = -<span class="number">2147418112</span> | message.type;</span><br><span class="line">        <span class="keyword">this</span>.writeI32(version);</span><br><span class="line">        <span class="keyword">this</span>.writeString(message.name);</span><br><span class="line">        <span class="keyword">this</span>.writeI32(message.seqid);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.writeString(message.name);</span><br><span class="line">        <span class="keyword">this</span>.writeByte(message.type);</span><br><span class="line">        <span class="keyword">this</span>.writeI32(message.seqid);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>####消息体 </p>
+<p>thrift 生成的代码</p>
+<p>这里需要注意一下，一般使用的scheme均为：StandardScheme</p>
+<p>还有一个是TupleScheme， 它是一种更节约空间但服务版本间不兼容的TupleScheme，它不再传输fieldId与type的元数据，只在Struct头写入一个bitset表明哪几个field有值，然后直接用生成的代码读取这些有值的field。所以如果新版idl中filed类型改动将出错；新的field也不会被读取数据流没有往前滚动，接下来也是错。</p>
+<p>写逻辑</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public void write(org.apache.thrift.protocol.TProtocol oprot) throws org.apache.thrift.TException &#123;</span><br><span class="line">  schemes.get(oprot.getScheme()).getScheme().write(oprot, this);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">  public void write(org.apache.thrift.protocol.TProtocol oprot, test_args struct) throws org.apache.thrift.TException &#123;</span><br><span class="line">    struct.validate();</span><br><span class="line"></span><br><span class="line">    oprot.writeStructBegin(STRUCT_DESC);</span><br><span class="line">    if (struct.p1 != null) &#123;</span><br><span class="line">      oprot.writeFieldBegin(P1_FIELD_DESC);</span><br><span class="line">      oprot.writeString(struct.p1);</span><br><span class="line">      oprot.writeFieldEnd();</span><br><span class="line">    &#125;</span><br><span class="line">    oprot.writeFieldBegin(P2_FIELD_DESC);</span><br><span class="line">    oprot.writeI32(struct.p2);</span><br><span class="line">    oprot.writeFieldEnd();</span><br><span class="line">    if (struct.p3 != null) &#123;</span><br><span class="line">      oprot.writeFieldBegin(P3_FIELD_DESC);</span><br><span class="line">      struct.p3.write(oprot);</span><br><span class="line">      oprot.writeFieldEnd();</span><br><span class="line">    &#125;</span><br><span class="line">    oprot.writeFieldStop();</span><br><span class="line">    oprot.writeStructEnd();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>读逻辑</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">read</span><span class="params">(org.apache.thrift.protocol.TProtocol iprot, test_args struct)</span> <span class="keyword">throws</span> org.apache.thrift.TException </span>&#123;</span><br><span class="line">  org.apache.thrift.protocol.TField schemeField;</span><br><span class="line">  iprot.readStructBegin();</span><br><span class="line">  <span class="keyword">while</span> (<span class="keyword">true</span>)</span><br><span class="line">  &#123;</span><br><span class="line">    schemeField = iprot.readFieldBegin();</span><br><span class="line">    <span class="keyword">if</span> (schemeField.type == org.apache.thrift.protocol.TType.STOP) &#123; </span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">switch</span> (schemeField.id) &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">// P1</span></span><br><span class="line">        <span class="keyword">if</span> (schemeField.type == org.apache.thrift.protocol.TType.STRING) &#123;</span><br><span class="line">          struct.p1 = iprot.readString();</span><br><span class="line">          struct.setP1IsSet(<span class="keyword">true</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">          org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2</span>: <span class="comment">// P2</span></span><br><span class="line">        <span class="keyword">if</span> (schemeField.type == org.apache.thrift.protocol.TType.I32) &#123;</span><br><span class="line">          struct.p2 = iprot.readI32();</span><br><span class="line">          struct.setP2IsSet(<span class="keyword">true</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">          org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">3</span>: <span class="comment">// P3</span></span><br><span class="line">        <span class="keyword">if</span> (schemeField.type == org.apache.thrift.protocol.TType.STRUCT) &#123;</span><br><span class="line">          struct.p3 = <span class="keyword">new</span> Xtruct();</span><br><span class="line">          struct.p3.read(iprot);</span><br><span class="line">          struct.setP3IsSet(<span class="keyword">true</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">          org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        org.apache.thrift.protocol.TProtocolUtil.skip(iprot, schemeField.type);</span><br><span class="line">    &#125;</span><br><span class="line">    iprot.readFieldEnd();</span><br><span class="line">  &#125;</span><br><span class="line">  iprot.readStructEnd();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// check for required fields of primitive type, which can't be checked in the validate method</span></span><br><span class="line">  struct.validate();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>所以综合起来，最后的消息都会落到TProtocol这个接口里。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/log4j2/" rel="tag"># log4j2</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/28/log4j2-slf4j-bind/" rel="next" title="log4j2与slf4j的绑定过程">
+                <i class="fa fa-chevron-left"></i> log4j2与slf4j的绑定过程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/01/04/java-thread-introduction/" rel="prev" title="java_thread_introduction">
+                java_thread_introduction <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">zhang zhitong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Thrift-Protocol-源码解析"><span class="nav-number">1.</span> <span class="nav-text">Thrift Protocol 源码解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#支持的数据结构"><span class="nav-number">1.1.</span> <span class="nav-text">支持的数据结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Read-and-Write"><span class="nav-number">1.1.1.</span> <span class="nav-text">Read and Write</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TJSONProtocol"><span class="nav-number">1.1.2.</span> <span class="nav-text">TJSONProtocol</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单例子的协议读写过程"><span class="nav-number">1.2.</span> <span class="nav-text">简单例子的协议读写过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TProtocol"><span class="nav-number">1.2.1.</span> <span class="nav-text">TProtocol</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#协议序列化部分"><span class="nav-number">1.2.2.</span> <span class="nav-text">协议序列化部分</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhang zhitong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://zztztt.github.com/2017/12/11/thrift-protocol/';
+          this.page.identifier = '2017/12/11/thrift-protocol/';
+          this.page.title = 'thrift-protocol';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
